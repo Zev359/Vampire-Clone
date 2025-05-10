@@ -30,7 +30,7 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
 
-            # update game
+            # update
             self.all_sprites.update(dt)
 
             # draw game
