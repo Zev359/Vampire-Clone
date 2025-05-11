@@ -19,7 +19,7 @@ class Game:
     def run(self):
         while self.running: # while self.running = True game loop keeps running
             # dt
-            dt = self.clock.tick() / 1000 # animation will be frame rate independent, based on delta between 2 frames
+            dt = self.clock.tick(60) / 1000 # animation will be frame rate independent, based on delta between 2 frames
 
             # event loop
             for event in pygame.event.get():
