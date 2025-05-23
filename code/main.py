@@ -1,6 +1,8 @@
 from settings import *
 from Player import Player
+from sprites import *
 
+from random import randint
 class Game:
     def __init__(self): # The constructor method. This runs once when you create a new Game() object.
         # Setup
@@ -15,6 +17,10 @@ class Game:
 
         # Sprites
         self.player = Player((400, 300), self.all_sprites)
+        for i in range(6):
+            x, y = randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)
+            w, h = randint(60, 100), randint(50, 100)
+            CollisionSprite((x, y), (w, h), self.all_sprites)
 
     def run(self):
         while self.running: # while self.running = True game loop keeps running
