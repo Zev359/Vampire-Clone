@@ -21,9 +21,10 @@ class Game:
             x, y = randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)
             w, h = randint(60, 100), randint(50, 100)
             CollisionSprite((x, y), (w, h), self.all_sprites)
+            # Creates frect at random x,y coordinates with random w,h within set w,h limits
 
     def run(self):
-        while self.running: # while self.running = True game loop keeps running
+        while self.running: # while self.running = True, game loop keeps running
             # dt
             dt = self.clock.tick(60) / 1000 # animation will be frame rate independent, based on delta between 2 frames
 
@@ -38,6 +39,8 @@ class Game:
 
             # update
             self.all_sprites.update(dt)
+            # calls update method from player, update has .input and .move
+            # which take in input and apply movement code from .move
 
             # draw game
             self.display_surface.fill('black')

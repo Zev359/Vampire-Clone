@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         # only works if vector has direction
 
     def move(self, dt):
-        self.rect.center += self.direction * self.speed * dt
+        self.rect.center += self.direction * self.speed * dt # changes the sprite position
 
     def update(self, dt):
         self.input()
