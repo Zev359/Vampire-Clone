@@ -1,6 +1,7 @@
 from settings import *
 from Player import Player
 from sprites import *
+from pytmx.util_pygame import load_pygame
 
 from random import randint
 class Game:
@@ -16,13 +17,20 @@ class Game:
         self.all_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
 
+        self.setup()
+
         # Sprites
-        self.player = Player((400, 300), self.all_sprites, self.collision_sprites) #the player is not in both groups, but has access to them
-        for i in range(6):
-            x, y = randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)
-            w, h = randint(60, 100), randint(50, 100)
-            CollisionSprite((x, y), (w, h), (self.all_sprites, self.collision_sprites))
-            # Creates frect at random x,y coordinates with random w,h within set w,h limits
+        self.player = Player((500, 300), self.all_sprites, self.collision_sprites) #the player is not in both groups, but has access to them
+
+    def setup(self):
+        map = load_pygame(join('data', 'maps', 'world.tmx'))
+        for obj in map.get_layer_by_name('Objects'):
+            CollisionSprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))
+
+        for x,y, image in map.get_layer_by_name('Ground').tiles():
+            print(x)
+            print(y)
+            print(image)
 
     def run(self):
         while self.running: # while self.running = True, game loop keeps running

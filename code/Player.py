@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)  # possible error? we don't need self?
         self.image = pygame.image.load(join('images', 'player', 'down', '0.png')).convert_alpha()
         self.rect = self.image.get_rect(center=pos)
-        self.hitbox_rect = self.rect.inflate(-40, 0)
+        self.hitbox_rect = self.rect.inflate(-60, 0)
 
         # self.image and self.rect = sprite expects 2 attributes
         # .image = pygame surface, 2d pixel grid
@@ -24,6 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.direction.x = int(keys[pygame.K_RIGHT]) - int(keys[pygame.K_LEFT])
         self.direction.y = int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])
         self.direction = self.direction.normalize() if self.direction else self.direction
+        # ensures diagonal isn't faster than horizontal or vertical by normalizing the vector to magnitude 1
         # only works if vector has direction
 
     def move(self, dt):
