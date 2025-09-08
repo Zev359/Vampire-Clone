@@ -5,7 +5,7 @@ from settings import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, collision_sprites):  # constructor method run when new player() object created
-        super().__init__(groups)  # possible error? we don't need self?
+        super().__init__(groups)  # possible error? we d
         self.image = pygame.image.load(join('images', 'player', 'down', '0.png')).convert_alpha()
         self.rect = self.image.get_rect(center=pos)
         self.hitbox_rect = self.rect.inflate(-60, 0)

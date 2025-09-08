@@ -1,7 +1,10 @@
+import pygame
+
 from settings import *
 from Player import Player
 from sprites import *
 from pytmx.util_pygame import load_pygame
+from groups import AllSprites
 
 from random import randint
 class Game:
@@ -14,7 +17,7 @@ class Game:
         self.running = True
 
         # Groups
-        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites = AllSprites()
         self.collision_sprites = pygame.sprite.Group()
 
         self.setup()
@@ -24,13 +27,15 @@ class Game:
 
     def setup(self):
         map = load_pygame(join('data', 'maps', 'world.tmx'))
+
+        for x,y, image in map.get_layer_by_name('Ground').tiles():
+            Sprite((x * TILE_SIZE,y * TILE_SIZE), image, self.all_sprites)
         for obj in map.get_layer_by_name('Objects'):
             CollisionSprite((obj.x, obj.y), obj.image, (self.all_sprites, self.collision_sprites))
 
-        for x,y, image in map.get_layer_by_name('Ground').tiles():
-            print(x)
-            print(y)
-            print(image)
+        for obj in map.get_layer_by_name('Collisions'): #collision layer from tiled, invicible
+            CollisionSprite((obj.x, obj.y), pygame.Surface((obj.width, obj. height)), self.collision_sprites)
+
 
     def run(self):
         while self.running: # while self.running = True, game loop keeps running
@@ -53,7 +58,7 @@ class Game:
 
             # draw game
             self.display_surface.fill('black')
-            self.all_sprites.draw(self.display_surface)
+            self.all_sprites.draw()
             pygame.display.update()
 
         pygame.quit()
